@@ -12,7 +12,7 @@
   <div class = " container blue-text text-darken-2 center"> <h3> Faculty Registration Form </h3> </div>
 
 	<div class="row">
-    <form class="col s12" method = "post" action = "<?php echo base_url('index.php/welcome/addfacultyDb') ?>" >
+    <form class="col s12" method = "post" action = "<?php echo base_url('index.php/welcome/addfacultyDb')?>" >
 
       <div class="row">
         <div class="input-field col s6">

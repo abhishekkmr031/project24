@@ -13,4 +13,21 @@ class Samplem extends CI_Model{
 		else
 				return false;
 	}
+
+	public function getdata()
+	{
+		$this->db->select("team, matchname, score");
+		$this->db->from('matchscore');//tbname
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function fetchdata()
+	{
+		$this->db->select("mark");
+		$this->db->from("marks");
+		$q = $this->db->get();
+		return $q->result();
+		
+	}
 }

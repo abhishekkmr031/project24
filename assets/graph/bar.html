@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChartJS - Bar</title>
+    <style>
+    	.canvas-container{
+
+    		width:80%;
+    		height:80%;
+    	}
+    </style>
+</head>
+<body>
+
+	
+		<div class = "canvas-container">
+				<canvas id="chartcanvas"></canvas>
+		</div>	
+
+	<!-- javascript -->
+    <script src="jquery.min.js"></script>
+    <script src="Chart.min.js"></script>
+
+    <script type = "text/javascript">
+
+    	var ctx = $("#chartcanvas");
+
+    	var data = {
+    labels: ["sub 1", "sub 2", "sub 3", "sub 4", "sub 5", "sub 6", "sub 7", "sub 8"],
+    datasets: [
+        {
+            label: "Attendance",
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(10, 20, 30, 0.3)',
+                'rgba(100, 150, 200, 1)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(10, 20, 30, 0.3)',
+                'rgba(100, 150, 200, 1)'
+            ],
+            borderWidth: 1,
+            data: [65, 59, 80, 81, 56, 55, 40, 20],
+        }
+    ]
+};
+
+        var options = {
+            title: {
+                display:true,
+                position:"top",
+                text:"Attendance Graph",
+                fontSize:18,
+                fontColor:"#111"
+            },
+
+            legend:{
+                display:true,
+                position:"bottom"
+            }
+
+            ,scales:{
+                yAxes:[{
+                    ticks:{
+                        min:0
+                    }
+                }]
+            }
+
+        };
+    	new Chart(ctx, {
+	    type: "bar",	<!-- make it "horizontalBar" for horizontal bar graph-->
+	    data: data,
+	    options: options
+});
+
+    </script>
+    
+</body>
+</html>

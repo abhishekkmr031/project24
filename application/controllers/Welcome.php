@@ -22,26 +22,15 @@ class Welcome extends CI_Controller {
 
 	    parent::__construct();
 		$this->load->helper('url');
+		$this->load->database();
 
    }
 	public function index()
 	{
-		$this->load->view('samplev');
+		$this->load->view('exam');
 
 	}
-	public function confirmation() 
-	{
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('first_name', 'First name', 'trim|required|min_length[3]|xss_clean');
-		$fname = $_POST['first_name'];
-		if($this->form_validation->run() == FALSE){
-			echo $fname;
-			$this->load->view('confirm');		}
-		else{
-			$this->load->view('confirm');
-		}
-	}
+	
 
 	public function test()
 	{
@@ -57,6 +46,43 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->model('Samplem');
 		$this->Samplem->addfaculty();
+		
 		$this->load->view('confirm');
+	}
+	// this retrieve_data() function will return json formatted data  to line.js file
+	public function retrieve_data()
+	{
+		$this->load->model('Samplem');
+		$this->data['matches'] = $this->Samplem->getdata();
+		//$this->load->view('dataview', $this->data);
+
+		// for json data include this header
+		header('Content-Type: application/json');
+
+
+		$data1 = array();
+
+		foreach ($this->data['matches'] as $key) { 
+			 
+			$data1[] = $key;
+			
+		 }
+		 // returns  data in json format
+		  echo json_encode($data1);
+		  
+
+	}
+
+	// this view will be loaded first before any thing which in  turn will call retrieve_data() function
+	public function confirm()
+	{
+		$this->load->view('line');
+	}
+
+	public function showdata()
+	{
+		$this->load->model('Samplem');
+		$this->data['array1'] = $this->Samplem->fetchdata();
+		$this->load->view('dataview2',$this->data);
 	}
 }
