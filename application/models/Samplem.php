@@ -24,10 +24,18 @@ class Samplem extends CI_Model{
 
 	public function fetchdata()
 	{
-		$this->db->select("mark");
-		$this->db->from("marks");
+		$this->db->select("usn, sub1, sub2, sub3");
+		$this->db->from("attendance");
 		$q = $this->db->get();
 		return $q->result();
 		
+	}
+
+	public function studentInProctorDb()
+	{
+		$this->db->select("usn, name");
+		$this->db->from("student");
+		$query = $this->db->get();
+		return $query->result();
 	}
 }

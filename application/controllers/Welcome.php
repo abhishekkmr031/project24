@@ -18,6 +18,7 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	
 	public function __construct() {
 
 	    parent::__construct();
@@ -27,7 +28,7 @@ class Welcome extends CI_Controller {
    }
 	public function index()
 	{
-		$this->load->view('exam');
+		$this->load->view('studentInProctor');
 
 	}
 	
@@ -74,15 +75,42 @@ class Welcome extends CI_Controller {
 	}
 
 	// this view will be loaded first before any thing which in  turn will call retrieve_data() function
-	public function confirm()
+	public function loadGraphView($data)
 	{
-		$this->load->view('line');
+		$this->data['usn'] = $data;
+		$this->load->view('attendanceGraph', $this->data);
+
+
+		//echo $data;
+		//$usn = $data;
 	}
 
-	public function showdata()
+	public function attendance($data1) //  for students marks and attendance testing data
 	{
+		$usn = "1AY13IS005";
+
 		$this->load->model('Samplem');
-		$this->data['array1'] = $this->Samplem->fetchdata();
-		$this->load->view('dataview2',$this->data);
+		$this->data['attendance'] = $this->Samplem->fetchdata();
+
+		// for json format data include this header
+		header('Content-Type:application/json');
+
+		$data  = array( );
+
+		foreach ($this->data['attendance'] as $key ) {
+			if ($key->usn == $data1) {	// comparison of usn
+				$data[] = $key;
+			}
+		}
+		echo json_encode($data);
+		
+	}
+
+	public function studentInProctor()
+	{
+		$this->load->model("Samplem");
+		$this->data['studentInProctor'] = $this->Samplem->studentInProctorDb();
+
+		$this->load->view('studentInProctor', $this->data);
 	}
 }
