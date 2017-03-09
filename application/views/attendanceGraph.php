@@ -21,6 +21,12 @@
 		<canvas id = "bar-chart"></canvas>
 	</div>
 
+	<hr>
+
+	<div class = "container" id = "marks">
+		<canvas id = "marks-chart"></canvas>
+	</div>
+
 	<!-- javascript -->
 	<script src = "<?php echo base_url('/assets/graph/Chart.min.js') ?>"></script>
 	<script src = "<?php echo base_url('/assets/graph/jquery.min.js') ?>"></script>
@@ -33,8 +39,10 @@
 		//console.log(usn);
 
 		var methodUrl = "http://localhost/ci/index.php/Welcome/attendance/";
+		var attendanceMethodUrl = methodUrl.concat(usn);
 
-		var dataUrl = methodUrl.concat(usn);
+		var methodUrl2 = "http://localhost/ci/index.php/Welcome/returnMarks/";
+		var marksMethodUrl = methodUrl2.concat(usn);
 
 		$(document).ready(function() {
 
@@ -43,10 +51,10 @@
 	 * call the data.php file to fetch the result from db table.
 	 */
 	$.ajax({
-		url : dataUrl,
+		url : attendanceMethodUrl,
 		type : "GET",
 		success : function(data){
-			//console.log(data);
+			console.log(data);
 			//console.log("inside successfunction");
 
 			var score = {
@@ -127,8 +135,98 @@
 			//console.log("error function");
 		}
 	});
+});
+$().ready(function() {
+
+$.ajax({
+		url : marksMethodUrl,
+		type : "GET",
+		success : function(data){
+			console.log(data);
+			console.log("inside successfunction 2");
+
+			var score = {
+				TeamA : []
+			};
+
+			var len = data.length;
+			
+			
+
+			for (var i = 0; i < len; i++) {
+				
+					score.TeamA.push(data[i].sub1);
+					score.TeamA.push(data[i].sub2);
+					score.TeamA.push(data[i].sub3);
+			}
+				//console.log(score.TeamA);
+
+				
+			//get canvas
+			var ctx = $("#marks-chart");
+
+			var data = {
+				labels : ["sub1", "sub2", "sub3",],
+				datasets : [
+					{
+						label : "Student marks Score",
+						data : score.TeamA,
+						backgroundColor : [
+												"rgba(10, 20, 30, 0.3)",
+												"rgba(100, 200, 300, 0.3)",
+												"rgba(110, 250, 350, 0.3)",
+											],
+						borderColor : [
+												"rgba(10, 20, 30, 1)",
+												"rgba(100, 200, 300, 1)",
+												"rgba(110, 250, 350, 1)",
+											],
+						borderWidth : 1,
+					}
+					
+				]
+			};
+
+			var options = {
+				title : {
+					display : true,
+					position : "top",
+					text : "Marks Graph",
+					fontSize : 18,
+					fontColor : "#111"
+				},
+				legend : {
+					display : true,
+					position : "bottom"
+				},
+				scales : {
+					yAxes : [{
+						ticks : {
+							min : 0
+						}
+					}]
+				}
+			};
+
+			var chart = new Chart( ctx, {
+				type : "bar",
+				data : data,
+				options : options
+			} );
+
+			//console.log("Nice,it seem's to be Working !!! :)");
+
+		},
+		error : function(data) {
+			console.log("Error in data parsing");
+			console.log(data);
+			//console.log("error function");
+		}
+	});
 
 });
+//});
+console.log("hello");
 
 	</script>
 

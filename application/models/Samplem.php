@@ -22,6 +22,7 @@ class Samplem extends CI_Model{
 		return $query->result();
 	}
 
+// returns data of students attendance 
 	public function fetchdata()
 	{
 		$this->db->select("usn, sub1, sub2, sub3");
@@ -29,6 +30,15 @@ class Samplem extends CI_Model{
 		$q = $this->db->get();
 		return $q->result();
 		
+	}
+
+// returns data of students marks
+	public function getMarks()
+	{
+		$this->db->select("usn, sub1, sub2, sub3");
+		$this->db->from("marks");
+		$q = $this->db->get();
+		return $q->result();
 	}
 
 	public function studentInProctorDb()

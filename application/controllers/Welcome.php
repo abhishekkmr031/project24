@@ -87,7 +87,6 @@ class Welcome extends CI_Controller {
 
 	public function attendance($data1) //  for students marks and attendance testing data
 	{
-		$usn = "1AY13IS005";
 
 		$this->load->model('Samplem');
 		$this->data['attendance'] = $this->Samplem->fetchdata();
@@ -106,6 +105,28 @@ class Welcome extends CI_Controller {
 		
 	}
 
+// returns data of student marks
+	public function returnMarks($usn)
+	{
+		$this->load->model('Samplem');
+		$this->data['marks'] = $this->Samplem->getMarks();
+
+		header('Content-Type:application/json');
+
+		$data = array( );
+
+		foreach ($this->data['marks'] as $key)
+		 {
+			if ($key->usn == $usn) 
+			{
+				$data[] = $key;
+			}
+		}
+
+		echo json_encode($data);
+	}
+
+// proctor first page which enlist name of all under this->proctor
 	public function studentInProctor()
 	{
 		$this->load->model("Samplem");
