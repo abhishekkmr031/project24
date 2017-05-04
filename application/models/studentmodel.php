@@ -6,7 +6,7 @@ class Studentmodel extends CI_Model {
     {
         parent::__construct();
     }
-
+// add faculty in dataBase
 	public function addfaculty(){
 
 		$data = array(

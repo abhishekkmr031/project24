@@ -26,9 +26,10 @@ class Welcome extends CI_Controller {
 		$this->load->database();
 
    }
+   // used to load studentInProctor ,  proctorDashboard
 	public function index()
 	{
-		$this->load->view('studentInProctor');
+		$this->load->view('line');
 
 	}
 	
@@ -42,7 +43,7 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('userlogin');
 	}
-
+// to push data in Db
 	public function addfacultyDb()
 	{
 		$this->load->model('Samplem');
@@ -77,7 +78,10 @@ class Welcome extends CI_Controller {
 	// this view will be loaded first before any thing which in  turn will call retrieve_data() function
 	public function loadGraphView($data)
 	{
+
+
 		$this->data['usn'] = $data;
+		// usn of student is passed as a parameter so that attendanceGraph.php can use it
 		$this->load->view('attendanceGraph', $this->data);
 
 
@@ -134,4 +138,32 @@ class Welcome extends CI_Controller {
 
 		$this->load->view('studentInProctor', $this->data);
 	}
+	public function retrievePersonalInformation($usn)
+	{
+		$this->load->model("Samplem");
+		$this->data['pinfo'] = $this->Samplem->personalInformationMethod();
+
+		header('Content-Type:application/json');
+
+		$data = array( );
+
+		foreach ($this->data['pinfo'] as $key)
+		 {
+			if ($key->usn == $usn) 
+			{
+				$data[] = $key;
+			}
+		}
+
+		echo json_encode($data);
+		
+	}
+
+	public function proctorPersonalInfo()
+	{
+		
+	}
+
+
+	
 }

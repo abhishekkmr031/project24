@@ -4,6 +4,7 @@ $(document).ready(function() {
 	url : "http://localhost/ci/index.php/Welcome/retrieve_data"
 	 * call the data.php file to fetch the result from db table.
 	 */
+	/*
 	$.ajax({
 		url : "http://localhost/ci/index.php/Welcome/retrieve_data",
 		type : "GET",
@@ -28,6 +29,7 @@ $(document).ready(function() {
 					score.TeamB.push(data[i].score);
 				}
 			}
+			*/
 
 				
 			//get canvas
@@ -37,8 +39,8 @@ $(document).ready(function() {
 				labels : ["sub1", "sub2", "sub3", "sub4", "sub5"],
 				datasets : [
 					{
-						label : "StudentA score",
-						data : score.TeamA,
+						label : "Internal I score",
+						data : [40, 50, 60, 70, 80],
 						backgroundColor : "blue",
 						borderColor : "lightblue",
 						fill : false,
@@ -46,14 +48,24 @@ $(document).ready(function() {
 						pointRadius : 5
 					},
 					{
-						label : "StudentB score",
-						data : score.TeamB,
+						label : "Internal II score",
+						data : [50, 40, 90, 80, 50],
 						backgroundColor : "green",
 						borderColor : "lightgreen",
 						fill : false,
 						lineTension : 0,
 						pointRadius : 5
+					},
+					{
+						label : "Internal III score",
+						data : [35, 65, 95, 88, 45],
+						backgroundColor : "blue",
+						borderColor : "blue",
+						fill : false,
+						lineTension : 0,
+						pointRadius : 5
 					}
+
 				]
 			};
 
@@ -68,14 +80,14 @@ $(document).ready(function() {
 				legend : {
 					display : true,
 					position : "bottom"
-				},
-				scales : {
+				}
+				/* ,scales : {
 					yAxes : [{
 						ticks : {
 							min : 0
 						}
 					}]
-				}
+				} */
 			};
 
 			var chart = new Chart( ctx, {
@@ -86,10 +98,12 @@ $(document).ready(function() {
 
 			console.log("Nice it seem's to be Working !!! :)");
 
+
+/* 
+
 		},
 		error : function(data) {
 			console.log(data);
 		}
-	});
-
-});
+	});  */
+}); 

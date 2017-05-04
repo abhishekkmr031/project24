@@ -48,4 +48,13 @@ class Samplem extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function personalInformationMethod()
+	{
+		$this->db->select("usn, name, fathername");
+		$this->db->from("personalInformation");
+		$query = $this->db->get();
+
+		return $query->result();
+	}
 }
